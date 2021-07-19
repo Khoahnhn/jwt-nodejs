@@ -1,5 +1,8 @@
 'use strict'
 
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 function login(req, res) {
     (async() => {
         try{
@@ -11,10 +14,14 @@ function login(req, res) {
             }
             
             if( username === 'khoa_le' && password === '123456') {
+                const access_token = jwt.sign({sub: username}, process.env.JWT_ACCESS_SECRET, {expiresIn: process.env.JWT_ACCESS_TIME})
                 return res.status(200).json({
                     ok: true,
                     message: 'login success',
-                    data: userInfo
+                    data: {
+                        userInfo,
+                        access_token
+                    }
                 })
             }
             
