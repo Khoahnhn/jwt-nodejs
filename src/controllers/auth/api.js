@@ -14,7 +14,7 @@ function login(req, res) {
             }
             
             if( username === 'khoa_le' && password === '123456') {
-                const access_token = jwt.sign({sub: username}, process.env.JWT_ACCESS_SECRET, {expiresIn: process.env.JWT_ACCESS_TIME})
+                const access_token = jwt.sign({username: username}, process.env.JWT_ACCESS_SECRET, {expiresIn: process.env.JWT_ACCESS_TIME})
                 return res.status(200).json({
                     ok: true,
                     message: 'login success',
@@ -40,6 +40,21 @@ function login(req, res) {
     })();  
 }
 
+function dashboard(req, res) {
+    (async() => {
+        try{
+            res.json('lala');
+        } catch (e) {
+            return res.status(500).json({
+                ok: false,
+                message: e.message,
+                errorCode: 'xxxx'
+            });
+        }
+    })();
+}
+
 module.exports = {
-    login
+    login,
+    dashboard
 }
